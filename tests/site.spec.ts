@@ -13,13 +13,25 @@ for (const [name, width, height] of [
       "Your enterprise.",
     );
     await page.evaluate(() => document.fonts.ready);
+    const heroBox = await page.locator(".hero").boundingBox();
+    const diagramBox = await page.locator(".hero-diagram").boundingBox();
+    expect(diagramBox!.y + diagramBox!.height).toBeLessThanOrEqual(
+      heroBox!.y + heroBox!.height + 1,
+    );
     await expect
       .poll(() =>
         page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
       )
       .toBe(true);
-    await page.screenshot({ path: `test-results/${name}-viewport.png` });
-    await page.screenshot({ path: `test-results/${name}.png`, fullPage: true });
+    await page.screenshot({
+      animations: "disabled",
+      path: `test-results/${name}-viewport.png`,
+    });
+    await page.screenshot({
+      animations: "disabled",
+      path: `test-results/${name}.png`,
+      fullPage: true,
+    });
     if (name === "mobile" || name === "tablet") {
       await page
         .locator(".hero-diagram")
@@ -90,4 +102,53 @@ test("mobile navigation and legal routes", async ({ page }) => {
   await expect(
     page.getByRole("heading", { level: 1, name: "Website terms" }),
   ).toBeVisible();
+});
+
+test("every section visual review, desktop and mobile", async ({ page }) => {
+  test.setTimeout(180000);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  const sections = [
+    ".hero",
+    ".systems-strip",
+    ".problem",
+    "#platform",
+    ".how",
+    ".paths",
+    ".execution",
+    "#deployment",
+    "#workflows",
+    "#company",
+    ".final-cta",
+    ".site-footer",
+  ];
+  for (const [name, width, height] of [
+    ["review-desktop", 1440, 1000],
+    ["review-mobile", 390, 844],
+  ] as const) {
+    await page.setViewportSize({ width, height });
+    await page.goto("/");
+    await page.evaluate(() => document.fonts.ready);
+    for (let i = 0; i < sections.length; i++) {
+      await page.locator(sections[i]).scrollIntoViewIfNeeded();
+      await page
+        .locator(sections[i])
+        .screenshot({
+          animations: "disabled",
+          path: `artifacts/design/${name}-${String(i).padStart(2, "0")}.png`,
+        });
+    }
+  }
+});
+
+test("page renders without hydration or browser errors", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  page.on("console", (message) => {
+    if (message.type() === "error") errors.push(message.text());
+  });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  await page.evaluate(() => document.fonts.ready);
+  await page.getByRole("tab", { name: /Enterprise Context/ }).click();
+  expect(errors).toEqual([]);
 });

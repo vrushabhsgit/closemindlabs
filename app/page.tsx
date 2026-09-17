@@ -1,6 +1,15 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import {
+  HeroDiagram,
+  ConvergenceBridge,
+  LayerMap,
+  SharedFoundation,
+  DeploymentMap,
+  WorkflowMap,
+  ReuseMap,
+  TechnicalIcon,
+} from "./components/diagrams";
 
 const layers = [
   {
@@ -120,93 +129,6 @@ function Label({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
-function HeroDiagram() {
-  return (
-    <div
-      className="hero-diagram"
-      aria-label="Company systems connect to a private AI core, enterprise context and governed execution within your infrastructure"
-    >
-      <div className="diagram-meta">
-        <span>
-          <span className="status-dot" /> CUSTOMER-CONTROLLED ENVIRONMENT
-        </span>
-        <span>FIG. 01</span>
-      </div>
-      <svg
-        className="circuit"
-        viewBox="0 0 620 480"
-        fill="none"
-        aria-hidden="true"
-      >
-        <defs>
-          <pattern
-            id="dots"
-            width="20"
-            height="20"
-            patternUnits="userSpaceOnUse"
-          >
-            <circle cx="1" cy="1" r=".7" fill="#bcc8dc" />
-          </pattern>
-        </defs>
-        <rect width="620" height="480" fill="url(#dots)" />
-        <g stroke="#aabce2" strokeWidth="1">
-          <path d="M80 104H220V185H310M310 185H405V100H525M80 244H205V220H310M310 220H440V244H525M80 381H240V258H310M310 258H410V381H525" />
-          <path d="M310 260V420" strokeDasharray="4 5" />
-        </g>
-        <g fill="#2054ef">
-          <circle className="signal signal-one" cx="220" cy="144" r="4" />
-          <circle className="signal signal-two" cx="440" cy="225" r="4" />
-          <circle className="signal signal-three" cx="240" cy="310" r="4" />
-        </g>
-      </svg>
-      <div className="system sys-1">
-        <span className="system-icon">▤</span>
-        <span>ERP & finance</span>
-      </div>
-      <div className="system sys-2">
-        <span className="system-icon">⌘</span>
-        <span>CRM & ITSM</span>
-      </div>
-      <div className="system sys-3">
-        <span className="system-icon">▱</span>
-        <span>Data & documents</span>
-      </div>
-      <div className="core-block">
-        <div className="core-top">
-          <Mark />
-          <span>PRIVATE AI CORE</span>
-        </div>
-        <strong>
-          Your operating
-          <br />
-          intelligence.
-        </strong>
-        <div className="core-bottom">
-          <span className="status-dot" /> MODEL NEUTRAL
-        </div>
-      </div>
-      <div className="system sys-4">
-        <span className="system-icon">⌁</span>
-        <span>Enterprise context</span>
-      </div>
-      <div className="system sys-5">
-        <span className="system-icon">⊞</span>
-        <span>Governed agents</span>
-      </div>
-      <div className="system sys-6">
-        <span className="system-icon">✓</span>
-        <span>Verified outcomes</span>
-      </div>
-      <div className="control-bar">
-        <span>⌑</span> Permissions <i /> Approvals <i /> Evaluation <i /> Audit
-      </div>
-      <div className="diagram-caption">
-        <span>YOUR SYSTEMS. CONNECTED.</span>
-        <span>YOUR CONTROL. PRESERVED.</span>
-      </div>
-    </div>
-  );
-}
 export default function Home() {
   const [menu, setMenu] = useState(false),
     [layer, setLayer] = useState(2),
@@ -214,7 +136,6 @@ export default function Home() {
     [approved, setApproved] = useState(false),
     [modal, setModal] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
-  const reduce = useReducedMotion();
   useEffect(() => {
     if (modal) dialog.current?.showModal();
     else dialog.current?.close();
@@ -266,24 +187,22 @@ export default function Home() {
       </header>
       <main id="main">
         <section className="hero section-wrap" id="product">
-          <motion.div
-            className="hero-copy"
-            initial={reduce ? false : { y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65 }}
-          >
+          <div className="hero-copy">
             <Label>THE PRIVATE AI OPERATING LAYER</Label>
             <h1>
               Your enterprise.
               <br />
               Your infrastructure.
               <br />
-              <span>Your AI.</span>
+              <span className="hero-ai">
+                <span className="headline-path" aria-hidden="true" />
+                Your AI.
+              </span>
             </h1>
             <p className="hero-description">
-              Connect the systems you already run.
-              <br className="desktop-break" /> Give AI the context to act. Keep
-              control.
+              Intelligence that knows your business.
+              <br />
+              Infrastructure that stays yours.
             </p>
             <p className="hero-detail">
               We deploy a private AI operating layer inside infrastructure you
@@ -298,23 +217,18 @@ export default function Home() {
                 Explore the platform <span aria-hidden="true">↓</span>
               </a>
             </div>
-            <div className="hero-footnote">
-              <span className="mini-check">✓</span> Customer-owned{" "}
-              <span className="mini-check">✓</span> Model-neutral{" "}
-              <span className="mini-check">✓</span> Governed by design
+            <div className="hero-footnote mono">
+              <span>Customer-owned</span>
+              <span>Model-neutral</span>
+              <span>Governed by design</span>
             </div>
-          </motion.div>
-          <motion.div
-            className="hero-visual"
-            initial={reduce ? false : { y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-          >
+          </div>
+          <div className="hero-visual">
             <HeroDiagram />
-          </motion.div>
+          </div>
         </section>
         <div className="systems-strip section-wrap">
-          <span className="mono">BUILT AROUND YOUR EXISTING STACK</span>
+          <span className="mono">WORKS WITH THE SYSTEMS YOU ALREADY RUN</span>
           <div className="system-names">
             <span className="sap">SAP</span>
             <span className="oracle">ORACLE</span>
@@ -332,10 +246,13 @@ export default function Home() {
           <div>
             <Label>01 / THE MISSING LAYER</Label>
             <h2>
-              Models are ready.
+              Intelligence is available.
               <br />
-              Your systems need
-              <br />a way to work together.
+              <span className="muted-heading">
+                Context is the
+                <br />
+                missing connection.
+              </span>
             </h2>
           </div>
           <div className="problem-right">
@@ -371,6 +288,7 @@ export default function Home() {
               ))}
             </div>
           </div>
+          <ConvergenceBridge />
         </section>
         <section id="platform" className="platform section-space">
           <div className="section-wrap">
@@ -378,9 +296,9 @@ export default function Home() {
               <div>
                 <Label>02 / ONE CONNECTED PLATFORM</Label>
                 <h2>
-                  From company systems
+                  Your systems.
                   <br />
-                  to company intelligence.
+                  One operating layer.
                 </h2>
               </div>
               <p>
@@ -446,20 +364,7 @@ export default function Home() {
                 aria-labelledby={"tab-" + layer}
                 tabIndex={0}
               >
-                <div className="context-graphic" aria-hidden="true">
-                  <div className="graph-ring ring-one" />
-                  <div className="graph-ring ring-two" />
-                  <div className="graph-center">
-                    <Mark />
-                  </div>
-                  {["Systems", "Policies", "People", "Knowledge"].map(
-                    (x, i) => (
-                      <span key={x} className={"graph-node node-" + i}>
-                        {x}
-                      </span>
-                    ),
-                  )}
-                </div>
+                <LayerMap layer={layer} />
                 <div className="mono blue">{layers[layer].tag}</div>
                 <h3>{layers[layer].name}</h3>
                 <p>{layers[layer].text}</p>
@@ -527,11 +432,6 @@ export default function Home() {
               <a href="#workflows" className="text-link">
                 Find your first workflow <Arrow />
               </a>
-              <div className="path-diagram">
-                <span>Existing systems</span>
-                <span>→</span>
-                <strong>Private AI layer</strong>
-              </div>
             </article>
             <article>
               <span className="mono blue">FOR AI-NATIVE COMPANIES</span>
@@ -548,13 +448,9 @@ export default function Home() {
               <a href="#platform" className="text-link">
                 Explore the Private AI Core <Arrow />
               </a>
-              <div className="path-diagram">
-                <span>Your product</span>
-                <span>→</span>
-                <strong>Private AI layer</strong>
-              </div>
             </article>
           </div>
+          <SharedFoundation />
         </section>
         <section className="execution section-space">
           <div className="section-wrap execution-grid">
@@ -575,7 +471,9 @@ export default function Home() {
                 matters.
               </p>
               <div className="execution-note">
-                <span className="blue">⌑</span>
+                <span className="blue">
+                  <TechnicalIcon kind="api" />
+                </span>
                 <span>
                   Explicit permissions.
                   <br />
@@ -679,21 +577,24 @@ export default function Home() {
               context.
             </p>
           </div>
-          <div className="deployment-options">
-            {[
-              ["⌘", "Customer VPC", "Within your existing cloud account."],
-              ["▤", "Private cloud", "Dedicated to your organization."],
-              ["▥", "On-premises", "Inside your own infrastructure."],
-              ["⊡", "Air-gapped", "For workloads requiring isolation."],
-            ].map(([icon, title, text]) => (
-              <div key={title}>
-                <span className="deployment-icon" aria-hidden="true">
-                  {icon}
-                </span>
-                <h3>{title}</h3>
-                <p>{text}</p>
-              </div>
-            ))}
+          <div className="deployment-body">
+            <DeploymentMap />
+            <div className="deployment-options">
+              {[
+                ["01", "Customer VPC", "Within your existing cloud account."],
+                ["02", "Private cloud", "Dedicated to your organization."],
+                ["03", "On-premises", "Inside your own infrastructure."],
+                ["04", "Air-gapped", "For workloads requiring isolation."],
+              ].map(([icon, title, text]) => (
+                <div key={title}>
+                  <span className="deployment-icon" aria-hidden="true">
+                    {icon}
+                  </span>
+                  <h3>{title}</h3>
+                  <p>{text}</p>
+                </div>
+              ))}
+            </div>
           </div>
           <p className="deployment-note mono">
             SOFTWARE, NOT HARDWARE.{" "}
@@ -737,9 +638,7 @@ export default function Home() {
             </div>
             <article className="category-detail" aria-live="polite">
               <span className="mono blue">ILLUSTRATIVE WORKFLOW</span>
-              <div className="workflow-symbol" aria-hidden="true">
-                ▤<span>→</span>⊞<span>→</span>✓
-              </div>
+              <WorkflowMap systems={workflowCategories[category][3]} />
               <h3>{workflowCategories[category][1]}</h3>
               <p>{workflowCategories[category][2]}</p>
               <div className="workflow-systems mono">
@@ -770,29 +669,7 @@ export default function Home() {
                 knowledge stays inside your environment.
               </p>
             </div>
-            <div className="compound-ledger">
-              {[
-                "Connector mappings",
-                "Evaluation tests",
-                "Permission patterns",
-                "Exception handling",
-                "Workflow primitives",
-                "Business context",
-              ].map((x, i) => (
-                <div key={x}>
-                  <span className="mono">0{i + 1}</span>
-                  <strong>{x}</strong>
-                  <span
-                    className="ledger-line"
-                    style={{ width: 40 + i * 17 }}
-                  />
-                  <span className="blue">+</span>
-                </div>
-              ))}
-              <div className="ledger-caption mono">
-                EACH WORKFLOW BUILDS THE FOUNDATION FOR THE NEXT.
-              </div>
-            </div>
+            <ReuseMap />
           </div>
         </section>
         <section className="final-cta section-wrap">

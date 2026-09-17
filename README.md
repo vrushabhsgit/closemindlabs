@@ -1,6 +1,6 @@
 # closemindlabs
 
-An original enterprise AI website built with Next.js App Router, TypeScript, Tailwind CSS and Framer Motion. Diagrams are native SVG/CSS; no external image or font service is required.
+An original enterprise AI website built with Next.js App Router, TypeScript, Tailwind CSS and Framer Motion. Diagrams are native SVG/CSS. Geist and Geist Mono are bundled locally through `next/font/local`, with the SIL font license in `public/fonts/OFL.txt`. No external image or font service is required.
 
 ## Run
 
@@ -34,3 +34,9 @@ Browser tests use Google Chrome at `/usr/bin/google-chrome` by default. Set `CHR
 The supplied brief did not include a booking service, contact address, legal entity or production domain. Scheduling is intentionally unconnected, as requested. Integrate Cal.com before enabling booking, and replace the preview legal notices with reviewed company policies. Confirm deployment and integration claims against the actual product. Third-party system names do not imply partnerships.
 
 Set canonical URLs, sitemap, social sharing image and hosting-specific privacy details once the production domain is known.
+
+## Visual system
+
+The recurring motif is a set of thin blue routes: fragmented sources converge into one governed layer. Blue marks connections, selected capabilities and deliberate actions. Architecture and workflow diagrams change with the selected content; deployment diagrams mark ownership boundaries. A scroll-linked bridge connects the problem statement to the platform. Reduced-motion mode preserves the complete diagrams without animation.
+
+Shared SVG components live in `app/components/diagrams.tsx`. The responsive type scale and section layouts live in `app/globals.css`. Browser tests capture every section at desktop and mobile sizes into the ignored `artifacts/design/` directory.

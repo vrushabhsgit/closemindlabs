@@ -1,5 +1,19 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import localFont from "next/font/local";
+
+const geist = localFont({
+  src: "../public/fonts/geist-latin.woff2",
+  variable: "--font-sans",
+  display: "swap",
+  weight: "100 900",
+});
+const geistMono = localFont({
+  src: "../public/fonts/geist-mono-latin.woff2",
+  variable: "--font-mono",
+  display: "swap",
+  weight: "100 900",
+});
 export const metadata: Metadata = {
   title: "Closemind Labs — Your enterprise. Your infrastructure. Your AI.",
   description:
@@ -15,7 +29,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${geist.variable} ${geistMono.variable}`}>
       <body>{children}</body>
     </html>
   );
