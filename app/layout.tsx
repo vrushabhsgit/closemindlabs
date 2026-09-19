@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { siteUrl, siteDescription } from "./site-config";
 import localFont from "next/font/local";
 
 const geist = localFont({
@@ -15,15 +16,19 @@ const geistMono = localFont({
   weight: "100 900",
 });
 export const metadata: Metadata = {
-  title: "Closemind Labs — Your enterprise. Your infrastructure. Your AI.",
-  description:
-    "A private AI operating layer that connects your models, data and business systems so governed agents can complete real work. Built for infrastructure you control.",
+  metadataBase: siteUrl ?? new URL("http://localhost:3000"),
+  title: "Closemind Labs — The private AI operating layer for the enterprise",
+  description: siteDescription,
   openGraph: {
     title: "Closemind Labs — The private AI operating layer",
-    description: "Make the systems you already own AI-operable.",
+    description:
+      "Complete workflows across existing systems with customer control, defined permissions and verified results.",
     type: "website",
+    siteName: "Closemind Labs",
+    locale: "en_US",
   },
-  robots: { index: true, follow: true },
+  twitter: { card: "summary_large_image" },
+  robots: { index: Boolean(siteUrl), follow: true },
 };
 export default function RootLayout({
   children,

@@ -1,16 +1,16 @@
 import { test, expect } from "@playwright/test";
 for (const [name, width, height] of [
-  ["desktop", 1600, 1000],
+  ["desktop", 1440, 1000],
   ["laptop", 1280, 800],
   ["tablet", 768, 1024],
   ["mobile", 390, 844],
-  ["small-mobile", 320, 740],
+  ["small-mobile", 360, 740],
 ] as const) {
   test(`${name}: responsive layout and screenshot`, async ({ page }) => {
     await page.setViewportSize({ width, height });
     await page.goto("/");
     await expect(page.getByRole("heading", { level: 1 })).toContainText(
-      "Your enterprise.",
+      "Complete work.",
     );
     await page.evaluate(() => document.fonts.ready);
     const heroBox = await page.locator(".hero").boundingBox();
@@ -67,21 +67,15 @@ test("platform keyboard navigation, workflows and approval gate", async ({
     page.getByRole("heading", { name: "Resolve an access request" }),
   ).toBeVisible();
 });
-test("working session placeholder is accessible and dismissible", async ({
-  page,
-}) => {
+test("primary calls to action lead to workflows", async ({ page }) => {
   await page.goto("/");
-  await page
-    .getByRole("button", { name: "Book a working session" })
-    .first()
-    .click();
-  const dialog = page.getByRole("dialog", {
-    name: "Let’s scope the first step.",
-  });
-  await expect(dialog).toBeVisible();
-  await expect(dialog).toContainText("Scheduling coming soon");
-  await page.keyboard.press("Escape");
-  await expect(dialog).not.toBeVisible();
+  await page.getByRole("link", { name: "Explore workflows" }).first().click();
+  await expect(page).toHaveURL(/#workflows$/);
+  await page.getByRole("link", { name: "See an approval example" }).click();
+  await expect(page).toHaveURL(/#execution$/);
+  await expect(
+    page.getByRole("button", { name: "Approve example action" }),
+  ).toBeVisible();
 });
 test("mobile navigation and legal routes", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
@@ -130,12 +124,10 @@ test("every section visual review, desktop and mobile", async ({ page }) => {
     await page.evaluate(() => document.fonts.ready);
     for (let i = 0; i < sections.length; i++) {
       await page.locator(sections[i]).scrollIntoViewIfNeeded();
-      await page
-        .locator(sections[i])
-        .screenshot({
-          animations: "disabled",
-          path: `artifacts/design/${name}-${String(i).padStart(2, "0")}.png`,
-        });
+      await page.locator(sections[i]).screenshot({
+        animations: "disabled",
+        path: `artifacts/design/${name}-${String(i).padStart(2, "0")}.png`,
+      });
     }
   }
 });

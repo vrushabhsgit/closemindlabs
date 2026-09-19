@@ -1,14 +1,14 @@
 {
   "name": "closemindlabs",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "The private AI operating layer for the enterprise",
   "scripts": {
     "dev": "next dev --hostname 0.0.0.0",
     "build": "next build --webpack",
     "start": "next start --hostname 0.0.0.0",
     "typecheck": "tsc --noEmit",
-    "test": "playwright test"
+    "test": "playwright test",
+    "test:production": "TEST_PRODUCTION=1 playwright test"
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,7 @@
     "react-dom": "^19.3.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
     "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^22.20.3",

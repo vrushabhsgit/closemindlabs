@@ -50,99 +50,8 @@ function Trace({ d, delay = 0 }: { d: string; delay?: number }) {
     </>
   );
 }
-export function HeroDiagram() {
-  return (
-    <figure className="hero-diagram">
-      <div className="diagram-meta mono">
-        <span>THE OPERATING LAYER</span>
-        <span>FIG. 01</span>
-      </div>
-      <svg
-        className="convergence-map"
-        viewBox="0 0 520 490"
-        role="img"
-        aria-label="Separate databases, documents, applications and APIs converge into enterprise context, pass through a governed execution layer, and produce verified actions."
-      >
-        <g className="diagram-grid" stroke="#e4e7eb" strokeWidth=".6">
-          <path d="M30 55H490M30 145H490M30 235H490M30 325H490M30 415H490M80 40V450M170 40V450M260 40V450M350 40V450M440 40V450" />
-        </g>
-        <g className="map-label" fill="currentColor">
-          <text x="30" y="59">
-            DATABASES
-          </text>
-          <text x="337" y="62">
-            APPLICATIONS
-          </text>
-          <text x="125" y="124">
-            DOCUMENTS
-          </text>
-          <text x="429" y="131">
-            APIs
-          </text>
-        </g>
-        <g stroke="#aeb5c2" fill="var(--paper)">
-          <ellipse cx="65" cy="88" rx="15" ry="5" />
-          <path d="M50 88v19c0 7 30 7 30 0V88M50 98c0 7 30 7 30 0" />
-          <path d="M166 138h18l7 7v26h-25zM184 138v8h7M172 152h12m-12 6h12" />
-          <rect x="366" y="79" width="32" height="28" />
-          <path d="M366 88h32m-22 0v19M436 152l-6 6 6 6m16-12 6 6-6 6m-6-12-4 15" />
-        </g>
-        <g className="blue">
-          <Trace d="M65 113V186H207V237" />
-          <Trace d="M178 173V202H230V237" delay={0.12} />
-          <Trace d="M382 109V184H284V237" delay={0.24} />
-          <Trace d="M444 172V202H307V237" delay={0.36} />
-        </g>
-        <rect
-          x="36"
-          y="221"
-          width="448"
-          height="151"
-          fill="var(--paper)"
-          stroke="#a9b8d3"
-          strokeDasharray="3 5"
-        />
-        <text className="map-label" x="54" y="245" fill="#636f80">
-          CUSTOMER-CONTROLLED BOUNDARY
-        </text>
-        <path d="M54 260H466" stroke="#dce2ed" />
-        <rect x="54" y="274" width="4" height="67" fill="var(--blue)" />
-        <text x="74" y="293" className="map-label" fill="var(--blue)">
-          CONTEXT + PERMISSIONS + EVALUATION
-        </text>
-        <text x="74" y="324" className="map-title">
-          Governed execution.
-        </text>
-        <path d="M437 307h17m-6-6 6 6-6 6" stroke="var(--blue)" fill="none" />
-        <g className="blue">
-          <Trace d="M207 372V405H95V432" delay={0.4} />
-          <Trace d="M260 372V432" delay={0.5} />
-          <Trace d="M307 372V405H425V432" delay={0.6} />
-        </g>
-        <g fill="var(--blue)">
-          <rect x="92" y="429" width="6" height="6" />
-          <rect x="257" y="429" width="6" height="6" />
-          <rect x="422" y="429" width="6" height="6" />
-        </g>
-        <g className="map-label" textAnchor="middle" fill="currentColor">
-          <text x="95" y="459">
-            APPROVED ACTIONS
-          </text>
-          <text x="260" y="459">
-            VERIFIED RESULTS
-          </text>
-          <text x="425" y="459">
-            AUDIT RECORDS
-          </text>
-        </g>
-      </svg>
-      <figcaption>
-        <span className="figure-number">01—</span> Fragmented systems. One
-        accountable execution layer.
-      </figcaption>
-    </figure>
-  );
-}
+export { HeroDiagram } from "./hero-diagram";
+
 export function ConvergenceBridge() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -283,6 +192,7 @@ export function SharedFoundation() {
   return (
     <div
       className="shared-foundation"
+      role="img"
       aria-label="Enterprise workflows and AI-native products converge on the same private AI layer"
     >
       <svg
@@ -297,7 +207,7 @@ export function SharedFoundation() {
         </g>
         <rect x="497" y="79" width="6" height="6" fill="var(--blue)" />
       </svg>
-      <span className="mono">ONE PLATFORM. BUILT TO GROW WITH YOU.</span>
+      <span className="mono">THE SAME CORE, CONNECTORS AND CONTROLS.</span>
     </div>
   );
 }
@@ -396,14 +306,14 @@ export function ReuseMap() {
     "Evaluation tests",
     "Permission patterns",
     "Exception handling",
-    "Workflow primitives",
+    "Reusable workflow steps",
     "Business context",
   ];
   return (
     <figure className="reuse-map">
       <div className="reuse-head mono">
         <span>WORKFLOW 01</span>
-        <span>RETAINED OPERATING KNOWLEDGE</span>
+        <span>REUSABLE SOFTWARE + COMPANY CONTEXT</span>
       </div>
       <div className="reuse-lanes">
         {labels.map((label, i) => (
@@ -422,7 +332,7 @@ export function ReuseMap() {
           Workflow 02 <span>→</span> Workflow 03 <span>→</span>
         </strong>
       </div>
-      <figcaption>Each workflow contributes to the next.</figcaption>
+      <figcaption>Reuse these components in the next workflow.</figcaption>
     </figure>
   );
 }
